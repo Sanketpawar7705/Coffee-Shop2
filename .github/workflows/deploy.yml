@@ -1,37 +1,22 @@
-name: Deploy Website to GitHub Pages
+name: Deploy Static Website to GitHub Pages
 
-# Trigger workflow on push to main branch
 on:
   push:
     branches:
-      - main
+      - main  # Trigger deployment on push to main branch
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
+      # Step 1: Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js (if your site uses Node, optional)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'  # choose your node version
-
-      # Step 3: Install dependencies (optional, remove if not using Node)
-      - name: Install dependencies
-        run: npm install
-
-      # Step 4: Build the website (optional, remove if static HTML)
-      - name: Build
-        run: npm run build || echo "No build step, skipping"
-
-      # Step 5: Deploy to GitHub Pages
+      # Step 2: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v6
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./  # Change to 'dist' or 'build' if your build folder is different
+          publish_dir: ./   # Deploy root of the repository
