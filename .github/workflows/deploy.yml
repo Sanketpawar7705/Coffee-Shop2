@@ -3,20 +3,22 @@ name: Deploy Static Website to GitHub Pages
 on:
   push:
     branches:
-      - main  # Trigger deployment on push to main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: false  # important to avoid token issues
 
-      # Step 2: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./   # Deploy root of the repository
+          publish_dir: ./          # your website root
+          user_name: Sanketpawar7705
+          user_email: Sanketpawar7705@users.noreply.github.com
